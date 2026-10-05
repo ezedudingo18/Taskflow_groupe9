@@ -17,6 +17,31 @@ npm install
 
 ## Démarrage
 
+### Docker
+
+Pour démarrer MongoDB et sa webui mongo-express, placez-vous dans le répertoire du repo, et démarrez la stack à l'aide de :
+
+```bash
+docker compose up
+
+
+# Ou avec l'option detach pour libérer le terminal
+docker compose up -d
+```
+
+Puis pour l'arrêter :
+
+```bash
+docker compose down
+
+# Ou alors pour supprimer toutes les données de Mongo
+docker compose down -v
+```
+
+mongo-express est accessible à l'adresse [http://localhost:3000](http://localhost:3000)
+
+### Applications
+
 ```bash
 npm run dev
 ```
