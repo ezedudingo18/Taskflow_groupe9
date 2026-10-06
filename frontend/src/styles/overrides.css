@@ -1,0 +1,5 @@
+[hidden],
+dialog:not([open]),
+[popover]:not(:popover-open) {
+  display: none;
+}

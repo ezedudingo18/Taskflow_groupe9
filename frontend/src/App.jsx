@@ -1,10 +1,11 @@
-import Layout from './components/Layout.jsx';
-import Home from './pages/Home.jsx';
+import { useAuthStore } from './stores/auth.store';
+import { AuthPage } from './pages/AuthPage/AuthPage';
+import { TasksPage } from './pages/TasksPage/TasksPage';
 
-export default function App() {
-  return (
-    <Layout>
-      <Home />
-    </Layout>
-  );
+export function App() {
+  const token = useAuthStore((state) => state.token);
+
+  return token ? <TasksPage /> : <AuthPage />;
 }
+
+export default App;
