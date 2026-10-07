@@ -1,5 +1,6 @@
 @baseUrl = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YWM2NGZlM2MxNzBmZTU0ODg4MjVhY2EiLCJpYXQiOjE3OTEzODE3NDIsImV4cCI6MTc5MTk4NjU0Mn0.gi5N0jP15e7Hw3VtKtnW3R0QDYwqawkvupZjffMcSBY
+@token = paste-your-token-here
+@taskId = paste-task-id-here
 
 ### List tasks
 GET {{baseUrl}}/api/tasks
