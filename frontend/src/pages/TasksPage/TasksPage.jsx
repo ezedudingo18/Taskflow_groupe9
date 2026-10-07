@@ -13,7 +13,10 @@ export function TasksPage() {
     const dialogRef = useRef(null);
 
     useEffect(() => {
-        fetchTasks();
+        const controller = new AbortController();
+        fetchTasks(controller.signal);
+
+        return () => controller.abort();
     }, [fetchTasks]);
 
     return (
