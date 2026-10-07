@@ -11,47 +11,47 @@ export const useTasksStore = create((set) => ({
     fetchTasks: async (signal) => {
         set({ isLoading: true, error: null });
         try {
-            const res = await tasksApi.getAll(signal);
-            set({ tasks: res, isLoading: false });
-        } catch (err) {
-            if (err.name === 'AbortError') return;
-            set({ error: err.message, isLoading: false });
+            const tasks = await tasksApi.getAll(signal);
+            set({ tasks, isLoading: false });
+        } catch (error) {
+            if (error.name === 'AbortError') return;
+            set({ error: error.message, isLoading: false });
         }
     },
 
-    addTask: async (taskData) => {
+    addTask: async (task) => {
         set({ error: null });
         try {
-            const newTask = await tasksApi.create(taskData);
-            set((state) => ({ tasks: [newTask, ...state.tasks] }));
-        } catch (err) {
-            set({ error: err.message });
-            throw err;
+            const createdTask = await tasksApi.create(task);
+            set((state) => ({ tasks: [createdTask, ...state.tasks] }));
+        } catch (error) {
+            set({ error: error.message });
+            throw error;
         }
     },
 
-    updateTask: async (id, partialData) => {
+    updateTask: async (_id, changes) => {
         set({ error: null });
         try {
-            const updatedTask = await tasksApi.update(id, partialData);
+            const updatedTask = await tasksApi.update(_id, changes);
             set((state) => ({
-                tasks: state.tasks.map((t) => (t.id === id ? updatedTask : t)),
+                tasks: state.tasks.map((task) => (task._id === _id ? updatedTask : task)),
             }));
-        } catch (err) {
-            set({ error: err.message });
-            throw err;
+        } catch (error) {
+            set({ error: error.message });
+            throw error;
         }
     },
 
-    deleteTask: async (id) => {
+    deleteTask: async (_id) => {
         set({ error: null });
         try {
-            await tasksApi.delete(id);
+            await tasksApi.delete(_id);
             set((state) => ({
-                tasks: state.tasks.filter((t) => t.id !== id),
+                tasks: state.tasks.filter((task) => task._id !== _id),
             }));
-        } catch (err) {
-            set({ error: err.message });
+        } catch (error) {
+            set({ error: error.message });
         }
     },
 }));

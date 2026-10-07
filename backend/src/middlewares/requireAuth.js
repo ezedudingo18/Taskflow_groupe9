@@ -1,16 +1,13 @@
 import jwt from 'jsonwebtoken';
 import { config } from '../config/env.js';
 
-export function requireAuth(req, res, next) {
-    const [scheme, token] = (req.headers.authorization || '').split(' ');
+export function requireAuth(request, response, next) {
+    const [scheme, token] = (request.headers.authorization || '').split(' ');
     if (scheme !== 'Bearer' || !token) {
-        return res.status(401).json({ error: 'Missing token' });
+        return response.status(401).json({ error: { message: 'Token manquant' } });
     }
-    try {
-        const payload = jwt.verify(token, config.jwtSecret);
-        req.userId = payload._id;
-        next();
-    } catch {
-        res.status(401).json({ error: 'Invalid token' });
-    }
+
+    const payload = jwt.verify(token, config.jwtSecret);
+    request.user = { _id: payload._id };
+    return next();
 }

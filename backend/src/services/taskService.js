@@ -1,48 +1,28 @@
-import mongoose from 'mongoose'
-import { Task } from '../models/Task.js'
+import { Task } from '../models/Task.js';
 
-export function listTasks(ownerId, { status } = {}) {
-    const filter = { ownerId };
-    if (status) filter.status = status;
-    return Task.find(filter)
+export function listTasks({ owner, status } = {}) {
+    const filter = status ? { owner, status } : { owner };
+    return Task.find(filter).sort({ createdAt: -1 });
 }
 
-export async function createTask({ ownerId, title, description, status, deadline }) {
-    const task = await Task.create({
-        ownerId,
-        title: title.trim(),
+export function createTask({ owner, title, description, status, deadline }) {
+    return Task.create({
+        owner,
+        title,
         description,
         status,
-        deadline
+        deadline,
     });
-    return task;
 }
 
-export async function updateTask(ownerId, taskId, updates) {
-    const task = await Task.findOne({ _id: taskId, ownerId });
-
-    if (!task) {
-        throw new Error("Tâche introuvable");
-    }
-
-    const allowedFields = ['title', 'description', 'status', 'deadline'];
-
-    for (const key of Object.keys(updates)) {
-        if (allowedFields.includes(key)) {
-            task[key] = updates[key];
-        }
-    }
-
-    await task.save();
-    return task;
+export function updateTask({ _id, ...changes }) {
+    return Task.findOneAndUpdate(
+        { _id },
+        { $set: changes },
+        { new: true },
+    );
 }
 
-export async function deleteTask(ownerId, taskId) {
-    const task = await Task.findOneAndDelete({ _id: taskId, ownerId });
-
-    if (!task) {
-        throw new Error("Tâche introuvable ou non autorisée");
-    }
-
-    return task;
+export function deleteTask({ _id, owner }) {
+    return Task.findOneAndDelete({ _id, owner });
 }

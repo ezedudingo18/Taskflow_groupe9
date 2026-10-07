@@ -1,43 +1,38 @@
-import * as taskService from '../services/taskService.js'
+import * as taskService from '../services/taskService.js';
 
-export async function getAllTasks(request, response) {
-    const tasks = await taskService.listTasks(request.userId)
-    return response.status(200).json({ message: "Todos récupérées : ", tasks: tasks })
+export async function getTasks(request, response) {
+    const tasks = await taskService.listTasks({ owner: request.user._id });
+    return response.status(200).json({ tasks });
 }
 
-export async function newTask(request, response) {
-    try {
-        const task = await taskService.createTask({
-            ownerId: request.userId,
-            title: request.body.title,
-            description: request.body.description,
-            status: request.body.status,
-            deadline: request.body.deadline
-        });
-        return response.status(201).json({ message: "Tâche créée", task })
-    } catch (error) {
-        return response.status(400).json({ message: error.message })
-    }
+export async function createTask(request, response) {
+    const { title, description, status, deadline } = request.body;
+    const task = await taskService.createTask({
+        owner: request.user._id,
+        title,
+        description,
+        status,
+        deadline,
+    });
+    return response.status(201).json({ task });
 }
 
 export async function updateTask(request, response) {
-    try {
-        const task = await taskService.updateTask(
-            request.userId,
-            request.params.id,
-            request.body
-        );
-        return response.status(200).json({ message: "Tâche mise à jour", task });
-    } catch (error) {
-        return response.status(400).json({ message: error.message });
-    }
+    const { title, description, status, deadline } = request.body;
+    const task = await taskService.updateTask({
+        _id: request.params._id,
+        ...(title !== undefined && { title }),
+        ...(description !== undefined && { description }),
+        ...(status !== undefined && { status }),
+        ...(deadline !== undefined && { deadline }),
+    });
+    return response.status(200).json({ task });
 }
 
 export async function deleteTask(request, response) {
-    try {
-        const task = await taskService.deleteTask(request.userId, request.params.id);
-        return response.status(200).json({ message: "Tâche supprimée", task });
-    } catch (error) {
-        return response.status(404).json({ message: error.message });
-    }
+    const task = await taskService.deleteTask({
+        _id: request.params._id,
+        owner: request.user._id,
+    });
+    return response.status(200).json({ task });
 }

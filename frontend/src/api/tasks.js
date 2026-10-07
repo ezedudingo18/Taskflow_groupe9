@@ -5,18 +5,22 @@ export const tasksApi = {
         const response = await apiClient('/tasks', { signal });
         return response.tasks || [];
     },
-    create: (taskData) =>
-        apiClient('/tasks', {
+    create: async (task) => {
+        const response = await apiClient('/tasks', {
             method: 'POST',
-            body: JSON.stringify(taskData),
-        }),
-    update: (id, taskData) =>
-        apiClient(`/tasks/${id}`, {
+            body: JSON.stringify(task),
+        });
+        return response.task;
+    },
+    update: async (_id, changes) => {
+        const response = await apiClient(`/tasks/${_id}`, {
             method: 'PATCH',
-            body: JSON.stringify(taskData),
-        }),
-    delete: (id) =>
-        apiClient(`/tasks/${id}`, {
+            body: JSON.stringify(changes),
+        });
+        return response.task;
+    },
+    delete: (_id) =>
+        apiClient(`/tasks/${_id}`, {
             method: 'DELETE',
         }),
 };

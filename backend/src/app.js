@@ -24,4 +24,13 @@ app.get('/api/health', (_request, response) => {
 app.use('/api/tasks', taskRouter);
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
+
+app.use((error, _request, response, _next) => {
+  const status = error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError'
+    ? 401
+    : error.statusCode || 500;
+  const message = status === 500 ? 'Une erreur interne est survenue' : error.message;
+  return response.status(status).json({ error: { message } });
+});
+
 export default app;
