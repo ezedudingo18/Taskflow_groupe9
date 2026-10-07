@@ -17,10 +17,10 @@ export function Register() {
         try {
             await authApi.register(email, password);
             const { token } = await authApi.login(email, password);
-            const user = await usersApi.me(token);
+            const { user } = await usersApi.me(token);
             setAuth(user, token);
-        } catch (err) {
-            setError(err.message);
+        } catch (error) {
+            setError(error.message);
         } finally {
             setLoading(false);
         }

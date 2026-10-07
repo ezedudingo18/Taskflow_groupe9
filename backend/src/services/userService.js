@@ -1,35 +1,17 @@
-import { User } from "../models/User.js"
 import bcrypt from 'bcryptjs';
+import { User } from '../models/User.js';
 
+const PASSWORD_SALT_ROUNDS = 10;
 
-export async function updateUser(id, { email, password }) {
-    const updateData = {}
-
-    if (email) {
-        updateData.email = email
-    }
-
-    if (password) {
-        updateData.passwordHash = await bcrypt.hash(password, 10)
-    }
-
-    const updatedUser = await User.findByIdAndUpdate(
-        id,
-        { $set: updateData },
-        { new: true, runValidators: true }
-    ).select('-passwordHash')
-
-    return updatedUser
+export async function createUser({ email, password }) {
+    const passwordHash = await bcrypt.hash(password, PASSWORD_SALT_ROUNDS);
+    return User.create({ email, passwordHash });
 }
 
-export const listUsers = async () => {
-    return await User.find().select('-passwordHash');
-};
+export function getUser(_id) {
+    return User.findById(_id).select('-passwordHash').lean();
+}
 
-export const getUserById = async (id) => {
-    return await User.findById(id).select('-passwordHash');
-};
-
-export function deleteUser(id) {
-    return User.findByIdAndDelete(id)
+export function getUserCredentialsByEmail(email) {
+    return User.findOne({ email }).select('+passwordHash').lean();
 }

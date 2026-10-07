@@ -6,12 +6,12 @@ export function CreateTaskModal({ dialogRef }) {
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [dueDate, setDueDate] = useState('');
+    const [deadline, setDeadline] = useState('');
 
     const handleClose = () => {
         setTitle('');
         setDescription('');
-        setDueDate('');
+        setDeadline('');
         dialogRef.current?.close();
     };
 
@@ -23,7 +23,7 @@ export function CreateTaskModal({ dialogRef }) {
             title: title.trim(),
             status: 'todo',
             description: description.trim() || undefined,
-            dueDate: dueDate || null,
+            deadline: deadline || null,
         });
 
         handleClose();
@@ -59,8 +59,8 @@ export function CreateTaskModal({ dialogRef }) {
                         <input
                             id="task-date"
                             type="date"
-                            value={dueDate}
-                            onChange={(e) => setDueDate(e.target.value)}
+                            value={deadline}
+                            onChange={(e) => setDeadline(e.target.value)}
                         />
                     </p>
                     <footer>

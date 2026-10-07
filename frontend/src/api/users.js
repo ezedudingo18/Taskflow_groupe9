@@ -2,7 +2,7 @@ import { apiClient } from './client';
 
 export const usersApi = {
     me: (token) =>
-        apiClient('/users/users', {
+        apiClient('/users/me', {
             headers: { Authorization: `Bearer ${token}` },
         }),
 };

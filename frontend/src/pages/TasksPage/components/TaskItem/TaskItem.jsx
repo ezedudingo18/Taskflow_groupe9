@@ -6,28 +6,28 @@ export function TaskItem({ task }) {
     const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState(task.title);
     const [description, setDescription] = useState(task.description || '');
-    const [dueDate, setDueDate] = useState(task.dueDate || '');
+    const [deadline, setDeadline] = useState(task.deadline || '');
 
     const isDone = task.status === 'done';
 
     const handleToggleDone = async (e) => {
-        await updateTask(task.id, {
+        await updateTask(task._id, {
             status: e.target.checked ? 'done' : 'todo',
         });
     };
 
     const handleSaveEdit = async (e) => {
         e.preventDefault();
-        await updateTask(task.id, {
+        await updateTask(task._id, {
             title: title.trim(),
             description: description.trim() || undefined,
-            dueDate: dueDate || null,
+            deadline: deadline || null,
         });
         setIsEditing(false);
     };
 
     const handleDelete = async () => {
-        await deleteTask(task.id);
+        await deleteTask(task._id);
     };
 
     return (
@@ -37,19 +37,19 @@ export function TaskItem({ task }) {
                     <p>
                         <input
                             type="checkbox"
-                            id={`task-check-${task.id}`}
+                            id={`task-check-${task._id}`}
                             checked={isDone}
                             onChange={handleToggleDone}
                         />
-                        <label htmlFor={`task-check-${task.id}`}>
+                        <label htmlFor={`task-check-${task._id}`}>
                             <strong>{task.title}</strong>
                         </label>
                     </p>
                 </header>
 
-                {task.dueDate && (
+                {task.deadline && (
                     <p>
-                        Échéance : <time dateTime={task.dueDate}>{task.dueDate}</time>
+                        Échéance : <time dateTime={task.deadline}>{task.deadline}</time>
                     </p>
                 )}
 
@@ -74,9 +74,9 @@ export function TaskItem({ task }) {
                         <fieldset>
                             <legend>Modifier la tâche</legend>
                             <p>
-                                <label htmlFor={`edit-title-${task.id}`}>Titre</label>
+                                <label htmlFor={`edit-title-${task._id}`}>Titre</label>
                                 <input
-                                    id={`edit-title-${task.id}`}
+                                    id={`edit-title-${task._id}`}
                                     type="text"
                                     required
                                     maxLength={120}
@@ -85,21 +85,21 @@ export function TaskItem({ task }) {
                                 />
                             </p>
                             <p>
-                                <label htmlFor={`edit-desc-${task.id}`}>Description</label>
+                                <label htmlFor={`edit-desc-${task._id}`}>Description</label>
                                 <textarea
-                                    id={`edit-desc-${task.id}`}
+                                    id={`edit-desc-${task._id}`}
                                     maxLength={1000}
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
                             </p>
                             <p>
-                                <label htmlFor={`edit-date-${task.id}`}>Date d'échéance</label>
+                                <label htmlFor={`edit-date-${task._id}`}>Date d'échéance</label>
                                 <input
-                                    id={`edit-date-${task.id}`}
+                                    id={`edit-date-${task._id}`}
                                     type="date"
-                                    value={dueDate}
-                                    onChange={(e) => setDueDate(e.target.value)}
+                                    value={deadline}
+                                    onChange={(e) => setDeadline(e.target.value)}
                                 />
                             </p>
                             <button type="submit">Enregistrer les modifications</button>
