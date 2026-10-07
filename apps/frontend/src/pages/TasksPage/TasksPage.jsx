@@ -1,14 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { useAuthStore } from '../../stores/auth.store';
 import { useTasksStore } from '../../stores/tasks.store';
 import { TaskList } from './components/TaskList/TaskList';
 import { CreateTaskModal } from './components/CreateTaskModal/CreateTaskModal';
 import { Header } from '../../components/Header/Header';
 
 export function TasksPage() {
-  const user = useAuthStore((state) => state.user);
-  const logout = useAuthStore((state) => state.logout);
-
   const { tasks, isLoading, error, fetchTasks } = useTasksStore();
   const dialogRef = useRef(null);
 
