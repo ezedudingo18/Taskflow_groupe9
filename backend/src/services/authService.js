@@ -23,3 +23,26 @@ export async function login({ email, password }) {
     // console.log(token);
     return { token }
 }
+
+export function listUsers() {
+    return User.find().select('-passwordHash')
+}
+
+export function getUserById(id) {
+    return User.findById(id).select('-passwordHash')
+}
+
+export async function createUser({ email, password }) {
+    const existingUser = await User.findOne({ email })
+    if (existingUser) {
+        throw new Error('Email déjà utilisé')
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10)
+    const user = new User({ email, passwordHash })
+    await user.save()
+
+    const result = user.toObject()
+    delete result.passwordHash
+    return result
+}
