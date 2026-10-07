@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { authApi } from '../../../../api/auth';
+import { usersApi } from '../../../../api/users';
 import { useAuthStore } from '../../../../stores/auth.store';
 
 export function Register() {
@@ -14,8 +15,10 @@ export function Register() {
         setError(null);
         setLoading(true);
         try {
-            const data = await authApi.register(email, password);
-            setAuth(data.user, data.token);
+            await authApi.register(email, password);
+            const { token } = await authApi.login(email, password);
+            const user = await usersApi.me(token);
+            setAuth(user, token);
         } catch (err) {
             setError(err.message);
         } finally {

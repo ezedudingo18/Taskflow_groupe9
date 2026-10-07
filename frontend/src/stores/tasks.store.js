@@ -6,12 +6,15 @@ export const useTasksStore = create((set) => ({
     isLoading: false,
     error: null,
 
-    fetchTasks: async () => {
+    clearTasks: () => set({ tasks: [], isLoading: false, error: null }),
+
+    fetchTasks: async (signal) => {
         set({ isLoading: true, error: null });
         try {
-            const res = await tasksApi.getAll();
+            const res = await tasksApi.getAll(signal);
             set({ tasks: res.items || [], isLoading: false });
         } catch (err) {
+            if (err.name === 'AbortError') return;
             set({ error: err.message, isLoading: false });
         }
     },
