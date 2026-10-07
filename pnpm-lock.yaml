@@ -165,6 +165,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      zod:
+        specifier: ^4.6.5
+        version: 4.6.5
     devDependencies:
       oxfmt:
         specifier: ^0.72.0
@@ -196,6 +200,9 @@ importers:
       mongoose:
         specifier: ^9.10.4
         version: 9.11.0
+      schemas:
+        specifier: workspace:*
+        version: link:../../schemas
     devDependencies:
       supertest:
         specifier: ^7.1.4
@@ -218,6 +225,12 @@ importers:
       zustand:
         specifier: ^5.0.15
         version: 5.0.15(react@19.3.0)
+
+  schemas:
+    dependencies:
+      zod:
+        specifier: ^4.6.5
+        version: 4.6.5
 
 packages:
 
@@ -1576,6 +1589,9 @@ packages:
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
 
+  zod@4.6.5:
+    resolution: {integrity: sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==}
+
   zustand@5.0.15:
     resolution: {integrity: sha512-MpSEjRiBkA9crSYeOUH32rJC7SVqAbm0Fqcqge/bUi2PPoLcBWKOsG+C8mevmpr8TwXHBVkChbbJiyvkE+i/3A==}
     engines: {node: '>=12.20.0'}
@@ -2754,6 +2770,8 @@ snapshots:
   wrappy@1.0.2: {}
 
   yallist@3.1.1: {}
+
+  zod@4.6.5: {}
 
   zustand@5.0.15(react@19.3.0):
     optionalDependencies:

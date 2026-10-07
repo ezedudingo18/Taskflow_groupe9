@@ -1,0 +1,41 @@
+@baseUrl = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YWM2NGZlM2MxNzBmZTU0ODg4MjVhY2EiLCJpYXQiOjE3OTEzODE3NDIsImV4cCI6MTc5MTk4NjU0Mn0.gi5N0jP15e7Hw3VtKtnW3R0QDYwqawkvupZjffMcSBY
+
+### List tasks
+GET {{baseUrl}}/api/tasks
+Authorization: Bearer {{token}}
+
+### Create a task
+POST {{baseUrl}}/api/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Tester l'API",
+  "description": "Créer une tâche depuis un fichier HTTP",
+  "status": "todo",
+  "deadline": "2026-12-31"
+}
+
+### Update a task
+PATCH {{baseUrl}}/api/tasks/{{taskId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "done"
+}
+
+### Delete a task
+DELETE {{baseUrl}}/api/tasks/{{taskId}}
+Authorization: Bearer {{token}}
+
+### Invalid task payload
+POST {{baseUrl}}/api/tasks
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "",
+  "status": "invalid"
+}

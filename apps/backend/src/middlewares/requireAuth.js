@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { AuthTokenPayloadSchema } from 'schemas/auth';
 import { config } from '../config/env.js';
 
 export function requireAuth(request, response, next) {
@@ -8,6 +9,11 @@ export function requireAuth(request, response, next) {
   }
 
   const payload = jwt.verify(token, config.jwtSecret);
-  request.user = { _id: payload._id };
+  const result = AuthTokenPayloadSchema.safeParse(payload);
+  if (!result.success) {
+    return response.status(401).json({ error: { message: 'Token invalide' } });
+  }
+
+  request.user = { _id: result.data._id };
   return next();
 }

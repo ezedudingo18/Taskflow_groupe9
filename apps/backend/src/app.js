@@ -33,7 +33,12 @@ app.use((error, _request, response, _next) => {
       ? 401
       : error.statusCode || 500;
   const message = status === 500 ? 'Une erreur interne est survenue' : error.message;
-  return response.status(status).json({ error: { message } });
+  return response.status(status).json({
+    error: {
+      message,
+      ...(error.details && { details: error.details }),
+    },
+  });
 });
 
 export default app;

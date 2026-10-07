@@ -1,0 +1,17 @@
+{
+  "name": "schemas",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./auth": "./auth.js",
+    "./params": "./params.js",
+    "./user": "./user.js",
+    "./task": "./task.js"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  }
+}

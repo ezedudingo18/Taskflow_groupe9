@@ -1,0 +1,31 @@
+@baseUrl = http://localhost:3000
+@email = test@example.com
+@password = password123
+
+### Register a user
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Login
+# Copy the returned token into tasks.http and users.http.
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Invalid registration payload
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "invalid-email",
+  "password": "short"
+}

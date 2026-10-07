@@ -1,0 +1,6 @@
+@baseUrl = http://localhost:3000
+@token = paste-your-token-here
+
+### Get the authenticated user
+GET {{baseUrl}}/api/users/me
+Authorization: Bearer {{token}}
