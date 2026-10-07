@@ -10,9 +10,9 @@
   color: var(--color-on-surface-1);
   font: inherit;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
   transition: background-color 150ms ease, transform 150ms ease;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
 }
 
 .button:hover {

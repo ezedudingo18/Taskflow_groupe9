@@ -21,9 +21,7 @@
 .overview h2 {
   font-size: clamp(2.5rem, 9vw, 7rem);
   font-weight: 900;
-  letter-spacing: -0.11em;
   line-height: 0.95;
-  text-transform: uppercase;
 }
 
 .list {

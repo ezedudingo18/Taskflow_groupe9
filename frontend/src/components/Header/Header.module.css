@@ -3,23 +3,19 @@
   grid-template-columns: minmax(12rem, 1fr) auto;
   align-items: end;
   gap: 1.5rem;
-  border: 1px solid var(--color-line);
   padding-block: 1rem;
 }
 
 .header h1 {
   font-size: clamp(2.25rem, 9vw, 7rem);
   font-weight: 900;
-  letter-spacing: -0.11em;
   line-height: 0.78;
-  text-transform: uppercase;
 }
 
 .account {
   color: var(--color-muted);
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  letter-spacing: 0.03em;
   text-align: end;
 }
 
@@ -39,7 +35,6 @@
   padding-inline: 0;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  text-transform: uppercase;
   text-decoration: underline;
   text-underline-offset: 0.25em;
 }
