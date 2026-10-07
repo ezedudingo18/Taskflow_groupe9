@@ -1,12 +1,21 @@
 {
   "name": "fullstack-js-starter",
-  "private": true,
   "version": "1.0.0",
-  "packageManager": "pnpm@12.9.1",
+  "private": true,
   "scripts": {
     "dev": "pnpm --filter backend --filter frontend --parallel run dev",
     "build": "pnpm --filter frontend build",
     "start": "pnpm --filter backend start",
-    "test": "pnpm --filter backend test"
-  }
+    "test": "pnpm --filter backend test",
+    "check": "oxlint . && oxfmt --check .",
+    "check:fix": "oxlint --fix . && oxfmt --write ."
+  },
+  "devDependencies": {
+    "oxfmt": "^0.72.0",
+    "oxlint": "^1.87.0"
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "packageManager": "pnpm@12.9.1"
 }

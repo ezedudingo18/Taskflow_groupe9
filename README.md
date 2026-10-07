@@ -4,7 +4,7 @@ Point de départ minimal pour les projets étudiants du module Full Stack JS.
 
 ## Prérequis
 
-- Node.js 20 ou plus récent ;
+- Node.js 24 ;
 - pnpm 10 ou plus récent.
 
 ## Installation
