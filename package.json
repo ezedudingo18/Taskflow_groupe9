@@ -2,25 +2,11 @@
   "name": "fullstack-js-starter",
   "private": true,
   "version": "1.0.0",
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
+  "packageManager": "pnpm@12.9.1",
   "scripts": {
-    "dev": "concurrently -n backend,frontend -c blue,green \"npm run dev --workspace backend\" \"npm run dev --workspace frontend\"",
-    "build": "npm run build --workspace frontend",
-    "start": "npm run start --workspace backend",
-    "test": "npm run test --workspace backend"
-  },
-  "devDependencies": {
-    "concurrently": "^9.2.1"
-  },
-  "allowScripts": {
-    "esbuild@0.28.2": true,
-    "fsevents@2.3.3": true
-  },
-  "dependencies": {
-    "bcrypt": "^6.0.0",
-    "dotenv": "^18.0.6"
+    "dev": "pnpm --filter backend --filter frontend --parallel run dev",
+    "build": "pnpm --filter frontend build",
+    "start": "pnpm --filter backend start",
+    "test": "pnpm --filter backend test"
   }
 }

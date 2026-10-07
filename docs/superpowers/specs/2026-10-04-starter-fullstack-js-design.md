@@ -6,7 +6,7 @@ Fournir aux etudiants de Master 1 un depot de demarrage lisible en quelques minu
 
 ## Architecture
 
-Le depot contient deux applications JavaScript independantes pilotees depuis la racine par des scripts npm. `frontend` utilise React et Vite ; `backend` utilise Express. La racine utilise uniquement `concurrently` pour demarrer les deux processus en developpement.
+Le depot contient deux applications JavaScript independantes pilotees depuis la racine par des scripts pnpm. `frontend` utilise React et Vite ; `backend` utilise Express. La racine utilise la fonctionnalite `--parallel` de pnpm pour demarrer les deux processus en developpement.
 
 Le frontend affiche une page unique dans un `Layout` compose de `Header`, contenu et `Footer`. Il ne contient ni routeur, ni donnees metier, ni formulaire. Vite redirige les requetes commencant par `/api` vers le backend local.
 
@@ -15,8 +15,8 @@ Le backend separe la creation de l'application (`src/app.js`) de son ecoute rese
 ## Contrat technique
 
 - JavaScript uniquement : pas de TypeScript ni ORM.
-- Node.js 20 ou plus recent et npm 10 ou plus recent.
-- React 19, Vite 7, Express 5, dotenv 16 et concurrently 9 : versions stables compatibles declarees dans les fichiers `package.json`.
+- Node.js 20 ou plus recent et pnpm 10 ou plus recent.
+- React 19, Vite 7, Express 5 et dotenv 16 : versions stables compatibles declarees dans les fichiers `package.json`.
 - Frontend : port 5173 par defaut.
 - Backend : `PORT` lu dans l'environnement, avec 3000 comme valeur locale par defaut.
 - `GET /api/health` repond avec le code 200 et `{ "status": "ok" }`.

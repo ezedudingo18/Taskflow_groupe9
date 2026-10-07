@@ -5,14 +5,14 @@ Point de départ minimal pour les projets étudiants du module Full Stack JS.
 ## Prérequis
 
 - Node.js 20 ou plus récent ;
-- npm 10 ou plus récent.
+- pnpm 10 ou plus récent.
 
 ## Installation
 
 Depuis ce dossier :
 
 ```bash
-npm install
+pnpm install
 ```
 
 ## Démarrage
@@ -43,7 +43,7 @@ mongo-express est accessible à l'adresse [http://localhost:3000](http://localho
 ### Applications
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Cette commande démarre le frontend Vite et le backend Express simultanément.
@@ -55,20 +55,21 @@ Cette commande démarre le frontend Vite et le backend Express simultanément.
 Autres commandes :
 
 ```bash
-npm run build
-npm run start
-npm test
+pnpm build
+pnpm start
+pnpm test
 ```
 
-`npm run build` construit le frontend. `npm run start` démarre uniquement le backend en mode production locale. `npm test` lance les tests backend.
+`pnpm build` construit le frontend. `pnpm start` démarre uniquement le backend en mode production locale. `pnpm test` lance les tests backend.
 
 ## Structure
 
 ```text
-frontend/     application React avec Vite
-backend/      serveur Express
-  src/app.js  création de l'application et route health
-  src/server.js démarrage du serveur
+apps/
+  frontend/   application React avec Vite
+  backend/    serveur Express
+    src/app.js  création de l'application et route health
+    src/server.js démarrage du serveur
 ```
 
 ## Proxy Vite
