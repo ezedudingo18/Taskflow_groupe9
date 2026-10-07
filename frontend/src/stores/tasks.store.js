@@ -12,7 +12,7 @@ export const useTasksStore = create((set) => ({
         set({ isLoading: true, error: null });
         try {
             const res = await tasksApi.getAll(signal);
-            set({ tasks: res.items || [], isLoading: false });
+            set({ tasks: res, isLoading: false });
         } catch (err) {
             if (err.name === 'AbortError') return;
             set({ error: err.message, isLoading: false });
