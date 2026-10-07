@@ -1,4 +1,12 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "singleQuote": true
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": ["**/*.css"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
 }
