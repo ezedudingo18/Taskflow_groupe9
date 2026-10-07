@@ -8,7 +8,12 @@ export function requireAuth(request, response, next) {
     return response.status(401).json({ error: { message: 'Token manquant' } });
   }
 
-  const payload = jwt.verify(token, config.jwtSecret);
+  let payload;
+  try {
+    payload = jwt.verify(token, config.jwtSecret);
+  } catch (error) {
+    return next(error);
+  }
   const result = AuthTokenPayloadSchema.safeParse(payload);
   if (!result.success) {
     return response.status(401).json({ error: { message: 'Token invalide' } });

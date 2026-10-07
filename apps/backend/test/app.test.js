@@ -16,6 +16,40 @@ test('GET /api/health retourne 200 et le statut ok', async () => {
   assert.deepEqual(response.body, { status: 'ok' });
 });
 
+test('GET /api/openapi.json retourne la spécification OpenAPI', async () => {
+  const response = await request(app).get('/api/openapi.json');
+
+  assert.equal(response.status, 200);
+  assert.equal(response.body.openapi, '3.0.3');
+  assert.ok(response.body.paths['/api/tasks']);
+});
+
+test('GET /api/docs retourne Swagger UI', async () => {
+  const response = await request(app).get('/api/docs/');
+
+  assert.equal(response.status, 200);
+  assert.match(response.text, /swagger-ui/);
+});
+
+test('Une requête protégée avec un token invalide retourne 401', async () => {
+  const response = await request(app)
+    .get('/api/tasks')
+    .set('Authorization', 'Bearer token-invalide');
+
+  assert.equal(response.status, 401);
+  assert.deepEqual(response.body, { error: { message: 'Token invalide' } });
+});
+
+test('Un corps JSON mal formé retourne 400', async () => {
+  const response = await request(app)
+    .post('/api/auth/login')
+    .set('Content-Type', 'application/json')
+    .send('{"email":');
+
+  assert.equal(response.status, 400);
+  assert.deepEqual(response.body, { error: { message: 'Le corps JSON est invalide' } });
+});
+
 test('POST /api/auth/register rejette un utilisateur invalide', async () => {
   const response = await request(app).post('/api/auth/register').send({
     email: 'adresse-invalide',

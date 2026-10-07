@@ -15,8 +15,12 @@ export function createTask({ owner, title, description, status, deadline }) {
   });
 }
 
-export function updateTask({ _id, ...changes }) {
-  return Task.findOneAndUpdate({ _id }, { $set: changes }, { new: true });
+export function updateTask({ _id, owner, ...changes }) {
+  return Task.findOneAndUpdate(
+    { _id, owner },
+    { $set: changes },
+    { new: true, runValidators: true },
+  );
 }
 
 export function deleteTask({ _id, owner }) {

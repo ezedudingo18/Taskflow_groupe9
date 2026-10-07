@@ -50,6 +50,8 @@ Cette commande démarre le frontend Vite et le backend Express simultanément.
 
 - Frontend : http://localhost:5173
 - API santé : http://localhost:3000/api/health
+- Documentation Swagger : http://localhost:3000/api/docs
+- Spécification OpenAPI : http://localhost:3000/api/openapi.json
 - API santé via le proxy Vite : http://localhost:5173/api/health
 
 Autres commandes :
@@ -61,6 +63,23 @@ pnpm test
 ```
 
 `pnpm build` construit le frontend. `pnpm start` démarre uniquement le backend en mode production locale. `pnpm test` lance les tests backend.
+
+## Documentation de l'API
+
+La documentation interactive Swagger UI est disponible sur
+[http://localhost:3000/api/docs](http://localhost:3000/api/docs) lorsque le backend est démarré.
+La spécification OpenAPI JSON est exposée sur
+[http://localhost:3000/api/openapi.json](http://localhost:3000/api/openapi.json).
+
+Pour essayer les routes protégées dans Swagger UI :
+
+1. appeler `POST /api/auth/register` ou `POST /api/auth/login` ;
+2. copier la valeur `token` renvoyée par la connexion ;
+3. cliquer sur **Authorize** et saisir le jeton (sans ajouter manuellement `Bearer`) ;
+4. appeler les routes `Tasks` ou `Users`.
+
+Le jeton JWT est requis pour les routes de tâches et `GET /api/users/me`. Les données envoyées
+aux routes sont validées par les schémas partagés du dossier `schemas/`.
 
 ## Structure
 
