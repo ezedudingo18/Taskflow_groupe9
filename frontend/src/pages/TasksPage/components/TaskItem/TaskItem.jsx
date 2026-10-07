@@ -6,7 +6,7 @@ export function TaskItem({ task }) {
     const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState(task.title);
     const [description, setDescription] = useState(task.description || '');
-    const [dueDate, setDueDate] = useState(task.dueDate || '');
+    const [deadline, setDeadline] = useState(task.deadline || '');
 
     const isDone = task.status === 'done';
 
@@ -21,7 +21,7 @@ export function TaskItem({ task }) {
         await updateTask(task.id, {
             title: title.trim(),
             description: description.trim() || undefined,
-            dueDate: dueDate || null,
+            deadline: deadline || null,
         });
         setIsEditing(false);
     };
@@ -47,9 +47,9 @@ export function TaskItem({ task }) {
                     </p>
                 </header>
 
-                {task.dueDate && (
+                {task.deadline && (
                     <p>
-                        Échéance : <time dateTime={task.dueDate}>{task.dueDate}</time>
+                        Échéance : <time dateTime={task.deadline}>{task.deadline}</time>
                     </p>
                 )}
 
@@ -98,8 +98,8 @@ export function TaskItem({ task }) {
                                 <input
                                     id={`edit-date-${task.id}`}
                                     type="date"
-                                    value={dueDate}
-                                    onChange={(e) => setDueDate(e.target.value)}
+                                    value={deadline}
+                                    onChange={(e) => setDeadline(e.target.value)}
                                 />
                             </p>
                             <button type="submit">Enregistrer les modifications</button>
