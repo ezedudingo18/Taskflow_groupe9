@@ -1,0 +1,49 @@
+.page {
+  max-inline-size: 58rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--color-line);
+}
+
+.tabs button {
+  border: 0;
+  background: transparent;
+  color: var(--color-muted);
+  padding-block: 0.85rem;
+  padding-inline: 1rem;
+  font: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.tabs button[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: var(--color-surface-1);
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.75fr) minmax(16rem, 1fr);
+  gap: clamp(2rem, 8vw, 8rem);
+  border: 1px solid var(--color-line);
+  padding: clamp(1.5rem, 6vw, 5rem);
+}
+
+.panel::before {
+  content: "TASKFLOW / ACCOUNT";
+  align-self: start;
+  color: var(--color-brand);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 42rem) {
+  .panel {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

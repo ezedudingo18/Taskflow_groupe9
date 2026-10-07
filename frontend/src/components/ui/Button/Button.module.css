@@ -1,0 +1,49 @@
+.button {
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0;
+  padding-block: 0.6rem;
+  padding-inline: 0.85rem;
+  background-color: var(--color-surface-2);
+  color: var(--color-on-surface-1);
+  font: inherit;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.button:hover {
+  background-color: var(--color-surface-3);
+}
+
+.button:active {
+  transform: translateY(0.05rem);
+}
+
+.primary {
+  background-color: var(--color-brand);
+  color: var(--color-on-brand);
+}
+
+.primary:hover {
+  background-color: color-mix(in srgb, var(--color-brand), black 8%);
+}
+
+.danger {
+  background: transparent;
+  color: var(--color-danger);
+}
+
+.danger:hover {
+  background-color: transparent;
+  color: var(--color-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}

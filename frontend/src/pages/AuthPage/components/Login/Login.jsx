@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { authApi } from '../../../../api/auth';
 import { usersApi } from '../../../../api/users';
 import { useAuthStore } from '../../../../stores/auth.store';
+import { AuthForm } from '../AuthForm/AuthForm';
 
 export function Login() {
     const [email, setEmail] = useState('');
@@ -26,12 +27,15 @@ export function Login() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <fieldset>
-                <legend>Connexion</legend>
-
-                {error && <p role="alert">{error}</p>}
-
+        <AuthForm
+            title="Bienvenue"
+            intro="Retrouvez vos tâches et avancez sereinement."
+            error={error}
+            loading={loading}
+            submitLabel="Se connecter"
+            loadingLabel="Connexion…"
+            onSubmit={handleSubmit}
+        >
                 <p>
                     <label htmlFor="login-email">Adresse e-mail</label>
                     <input
@@ -55,10 +59,6 @@ export function Login() {
                     />
                 </p>
 
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Connexion…' : 'Se connecter'}
-                </button>
-            </fieldset>
-        </form>
+        </AuthForm>
     );
 }

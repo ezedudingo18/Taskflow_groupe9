@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useTasksStore } from '../../../../stores/tasks.store';
+import { Button } from '../../../../components/ui/Button/Button';
+import styles from './TaskItem.module.css';
 
 export function TaskItem({ task }) {
     const { updateTask, deleteTask } = useTasksStore();
@@ -31,10 +33,10 @@ export function TaskItem({ task }) {
     };
 
     return (
-        <li>
+        <li className={`${styles.item} ${isDone ? styles.done : ''}`}>
             <article>
-                <header>
-                    <p>
+                <header className={styles.header}>
+                    <p className={styles.title}>
                         <input
                             type="checkbox"
                             id={`task-check-${task.id}`}
@@ -48,29 +50,29 @@ export function TaskItem({ task }) {
                 </header>
 
                 {task.deadline && (
-                    <p>
+                    <p className={styles.meta}>
                         Échéance : <time dateTime={task.deadline}>{task.deadline}</time>
                     </p>
                 )}
 
                 {task.description && (
-                    <details>
+                    <details className={styles.details}>
                         <summary>Voir la description</summary>
                         <p>{task.description}</p>
                     </details>
                 )}
 
-                <footer>
-                    <button type="button" onClick={() => setIsEditing(!isEditing)}>
+                <footer className={styles.actions}>
+                    <Button type="button" onClick={() => setIsEditing(!isEditing)}>
                         {isEditing ? 'Annuler' : 'Éditer'}
-                    </button>
-                    <button type="button" onClick={handleDelete}>
+                    </Button>
+                    <Button variant="danger" type="button" onClick={handleDelete}>
                         Supprimer
-                    </button>
+                    </Button>
                 </footer>
 
                 {isEditing && (
-                    <form onSubmit={handleSaveEdit}>
+                    <form className={styles.edit} onSubmit={handleSaveEdit}>
                         <fieldset>
                             <legend>Modifier la tâche</legend>
                             <p>
@@ -102,7 +104,7 @@ export function TaskItem({ task }) {
                                     onChange={(e) => setDeadline(e.target.value)}
                                 />
                             </p>
-                            <button type="submit">Enregistrer les modifications</button>
+                            <Button variant="primary" type="submit">Enregistrer les modifications</Button>
                         </fieldset>
                     </form>
                 )}

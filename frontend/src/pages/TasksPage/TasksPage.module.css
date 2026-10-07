@@ -1,0 +1,47 @@
+.page {
+  max-inline-size: 78rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid var(--color-line);
+  padding-block: 1rem;
+}
+
+.overview {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid var(--color-line);
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.overview h2 {
+  font-size: clamp(2.5rem, 9vw, 7rem);
+  font-weight: 900;
+  letter-spacing: -0.11em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.list {
+  display: grid;
+  gap: 0.65rem;
+  list-style: none;
+  padding: 0;
+}
+
+.empty {
+  border: 1px solid var(--color-ink);
+  color: var(--color-muted);
+  padding-block: 1.25rem;
+}
+
+@media (max-width: 38rem) {
+  .actions {
+    align-items: start;
+    flex-direction: column;
+  }
+}

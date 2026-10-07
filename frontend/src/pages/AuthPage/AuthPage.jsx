@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { Login } from './components/Login/Login';
 import { Register } from './components/Register/Register';
-import { Header } from '../../components/Header/Header';
+import { AppLayout } from '../../layouts/AppLayout/AppLayout';
+import styles from './AuthPage.module.css';
 
 export function AuthPage() {
     const [mode, setMode] = useState('login');
 
     return (
-        <main>
-            <Header />
-
-            <nav>
+        <AppLayout className={styles.page}>
+            <nav className={styles.tabs} aria-label="Accès au compte">
                 <button
                     type="button"
                     aria-pressed={mode === 'login'}
@@ -27,9 +26,9 @@ export function AuthPage() {
                 </button>
             </nav>
 
-            <section>
+            <section className={styles.panel}>
                 {mode === 'login' ? <Login /> : <Register />}
             </section>
-        </main>
+        </AppLayout>
     );
 }

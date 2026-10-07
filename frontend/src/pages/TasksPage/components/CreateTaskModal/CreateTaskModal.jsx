@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useTasksStore } from '../../../../stores/tasks.store';
+import { Button } from '../../../../components/ui/Button/Button';
+import styles from './CreateTaskModal.module.css';
 
 export function CreateTaskModal({ dialogRef }) {
     const addTask = useTasksStore((state) => state.addTask);
@@ -30,10 +32,15 @@ export function CreateTaskModal({ dialogRef }) {
     };
 
     return (
-        <dialog ref={dialogRef}>
+        <dialog
+            className={styles.dialog}
+            ref={dialogRef}
+            aria-labelledby="new-task-title"
+            onCancel={handleClose}
+        >
             <form onSubmit={handleSubmit}>
                 <fieldset>
-                    <legend>Nouvelle tâche</legend>
+                    <legend id="new-task-title">Nouvelle tâche</legend>
                     <p>
                         <label htmlFor="task-title">Titre (1 à 120 caractères) *</label>
                         <input
@@ -63,11 +70,11 @@ export function CreateTaskModal({ dialogRef }) {
                             onChange={(e) => setDeadline(e.target.value)}
                         />
                     </p>
-                    <footer>
-                        <button type="submit">Ajouter la tâche</button>
-                        <button type="button" onClick={handleClose}>
+                    <footer className={styles.footer}>
+                        <Button variant="primary" type="submit">Ajouter la tâche</Button>
+                        <Button type="button" onClick={handleClose}>
                             Annuler
-                        </button>
+                        </Button>
                     </footer>
                 </fieldset>
             </form>

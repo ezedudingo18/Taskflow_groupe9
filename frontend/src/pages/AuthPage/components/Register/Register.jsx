@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { authApi } from '../../../../api/auth';
 import { usersApi } from '../../../../api/users';
 import { useAuthStore } from '../../../../stores/auth.store';
+import { AuthForm } from '../AuthForm/AuthForm';
 
 export function Register() {
     const [email, setEmail] = useState('');
@@ -27,12 +28,15 @@ export function Register() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <fieldset>
-                <legend>Inscription</legend>
-
-                {error && <p role="alert">{error}</p>}
-
+        <AuthForm
+            title="Créer un compte"
+            intro="Organisez vos tâches avec une vue claire et simple."
+            error={error}
+            loading={loading}
+            submitLabel="S'inscrire"
+            loadingLabel="Création…"
+            onSubmit={handleSubmit}
+        >
                 <p>
                     <label htmlFor="register-email">Adresse e-mail</label>
                     <input
@@ -56,10 +60,6 @@ export function Register() {
                     />
                 </p>
 
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Création…' : "S'inscrire"}
-                </button>
-            </fieldset>
-        </form>
+        </AuthForm>
     );
 }
