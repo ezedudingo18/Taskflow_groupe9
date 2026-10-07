@@ -15,7 +15,7 @@ Le backend separe la creation de l'application (`src/app.js`) de son ecoute rese
 ## Contrat technique
 
 - JavaScript uniquement : pas de TypeScript ni ORM.
-- Node.js 20 ou plus recent et pnpm 10 ou plus recent.
+- Node.js 24 et pnpm 10 ou plus recent.
 - React 19, Vite 7, Express 5 et dotenv 16 : versions stables compatibles declarees dans les fichiers `package.json`.
 - Frontend : port 5173 par defaut.
 - Backend : `PORT` lu dans l'environnement, avec 3000 comme valeur locale par defaut.

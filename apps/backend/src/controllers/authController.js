@@ -1,11 +1,11 @@
 import * as authService from '../services/authService.js';
 
 export async function register(request, response) {
-    const user = await authService.register(request.body);
-    return response.status(201).json({ user });
+  const user = await authService.register(request.body);
+  return response.status(201).json({ user });
 }
 
 export async function login(request, response) {
-    const auth = await authService.login(request.body);
-    return response.status(200).json(auth);
+  const auth = await authService.login(request.body);
+  return response.status(200).json(auth);
 }

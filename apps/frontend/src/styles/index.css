@@ -2,6 +2,4 @@
 @import url("./main.css") layer(main);
 @import url("./overrides.css") layer(overrides);
 
-@layer reset,
-main,
-overrides;
+@layer reset, main, overrides;

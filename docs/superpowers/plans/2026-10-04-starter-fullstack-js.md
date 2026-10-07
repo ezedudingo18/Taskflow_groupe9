@@ -6,7 +6,7 @@
 
 **Architecture :** deux applications npm independantes. Le backend expose le seul contrat HTTP ; le frontend l'atteint via un proxy Vite. Les scripts racine coordonnent sans ajouter de logique metier.
 
-**Pile :** Node.js 20+, pnpm 10+, React 19, Vite 7, Express 5, dotenv 16, supertest 7.
+**Pile :** Node.js 24, pnpm 10+, React 19, Vite 7, Express 5, dotenv 16, supertest 7.
 
 **Specification :** `docs/superpowers/specs/2026-10-04-starter-fullstack-js-design.md`
 
@@ -30,6 +30,7 @@
 ### Tache 1 : socle npm et hygiene du depot
 
 **Fichiers :**
+
 - Creer : `package.json`, `pnpm-workspace.yaml`, `.gitignore`, `apps/backend/.env.example`, `apps/frontend/package.json`, `apps/backend/package.json`.
 
 **Produit :** scripts racine `install`, `dev`, `build`, `start`; scripts locaux `dev`, `build` et `start` appropries.
@@ -42,6 +43,7 @@
 ### Tache 2 : contrat de sante Express (TDD)
 
 **Fichiers :**
+
 - Creer : `apps/backend/test/app.test.js`, `apps/backend/src/app.js`, `apps/backend/src/server.js`.
 - Modifier : `apps/backend/package.json`.
 
@@ -55,6 +57,7 @@
 ### Tache 3 : interface React minimale
 
 **Fichiers :**
+
 - Creer : `apps/frontend/index.html`, `apps/frontend/src/main.jsx`, `apps/frontend/src/App.jsx`, `apps/frontend/src/index.css`, `apps/frontend/src/components/Layout.jsx`, `apps/frontend/src/components/Header.jsx`, `apps/frontend/src/components/Footer.jsx`, `apps/frontend/src/pages/Home.jsx`, `apps/frontend/vite.config.js`.
 
 **Produit :** page responsive, sans navigation ni donnees metier.
@@ -67,6 +70,7 @@
 ### Tache 4 : guide et recette complete
 
 **Fichiers :**
+
 - Creer : `README.md`.
 
 **Produit :** guide francais exact et concis pour les etudiants.

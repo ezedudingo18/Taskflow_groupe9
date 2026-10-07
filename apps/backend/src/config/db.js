@@ -1,9 +1,9 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 export async function connectDb(uri) {
-    await mongoose.connect(uri)
+  await mongoose.connect(uri);
 }
 
 export async function disconnectDb() {
-    await mongoose.disconnect();
+  await mongoose.disconnect();
 }

@@ -3,36 +3,36 @@ import { useAuthStore } from '../stores/auth.store';
 const BASE_URL = '/api';
 
 export async function apiClient(endpoint, options = {}) {
-    const token = useAuthStore.getState().token;
-    const headers = {
-        'Content-Type': 'application/json',
-        ...options.headers,
-    };
+  const token = useAuthStore.getState().token;
+  const headers = {
+    'Content-Type': 'application/json',
+    ...options.headers,
+  };
 
-    if (token && !headers.Authorization) {
-        headers.Authorization = `Bearer ${token}`;
-    }
+  if (token && !headers.Authorization) {
+    headers.Authorization = `Bearer ${token}`;
+  }
 
-    const response = await fetch(`${BASE_URL}${endpoint}`, {
-        ...options,
-        headers,
-    });
+  const response = await fetch(`${BASE_URL}${endpoint}`, {
+    ...options,
+    headers,
+  });
 
-    if (response.status === 401) {
-        useAuthStore.getState().logout();
-        throw new Error('Session expirée ou non autorisée');
-    }
+  if (response.status === 401) {
+    useAuthStore.getState().logout();
+    throw new Error('Session expirée ou non autorisée');
+  }
 
-    if (response.status === 204) {
-        return null;
-    }
+  if (response.status === 204) {
+    return null;
+  }
 
-    const responseText = await response.text();
-    const data = responseText ? JSON.parse(responseText) : {};
+  const responseText = await response.text();
+  const data = responseText ? JSON.parse(responseText) : {};
 
-    if (!response.ok) {
-        throw new Error(data?.error?.message || data?.message || 'Une erreur est survenue');
-    }
+  if (!response.ok) {
+    throw new Error(data?.error?.message || data?.message || 'Une erreur est survenue');
+  }
 
-    return data;
+  return data;
 }

@@ -12,7 +12,18 @@ body {
   min-height: 100dvh;
   display: grid;
 
-  background-image: radial-gradient(74% 60% at 46% 54%, color(srgb 1 0.964706 0.94902 / 0.55) 0%, rgba(0, 0, 0, 0) 74%), radial-gradient(54% 48% at 97% -4%, color(srgb 1 0.545098 0.411765 / 0.55) 0%, rgba(0, 0, 0, 0) 68%), linear-gradient(212deg, color(srgb 1 0.705882 0.615686 / 0.85) 0%, rgba(0, 0, 0, 0) 68%)
+  background-image:
+    radial-gradient(
+      74% 60% at 46% 54%,
+      color(srgb 1 0.964706 0.94902 / 0.55) 0%,
+      rgba(0, 0, 0, 0) 74%
+    ),
+    radial-gradient(
+      54% 48% at 97% -4%,
+      color(srgb 1 0.545098 0.411765 / 0.55) 0%,
+      rgba(0, 0, 0, 0) 68%
+    ),
+    linear-gradient(212deg, color(srgb 1 0.705882 0.615686 / 0.85) 0%, rgba(0, 0, 0, 0) 68%);
 }
 
 main {

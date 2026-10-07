@@ -6,37 +6,37 @@ import { CreateTaskModal } from './components/CreateTaskModal/CreateTaskModal';
 import { Header } from '../../components/Header/Header';
 
 export function TasksPage() {
-    const user = useAuthStore((state) => state.user);
-    const logout = useAuthStore((state) => state.logout);
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
 
-    const { tasks, isLoading, error, fetchTasks } = useTasksStore();
-    const dialogRef = useRef(null);
+  const { tasks, isLoading, error, fetchTasks } = useTasksStore();
+  const dialogRef = useRef(null);
 
-    useEffect(() => {
-        const controller = new AbortController();
-        fetchTasks(controller.signal);
+  useEffect(() => {
+    const controller = new AbortController();
+    fetchTasks(controller.signal);
 
-        return () => controller.abort();
-    }, [fetchTasks]);
+    return () => controller.abort();
+  }, [fetchTasks]);
 
-    return (
-        <main>
-            <Header />
+  return (
+    <main>
+      <Header />
 
-            <section>
-                <button type="button" onClick={() => dialogRef.current?.showModal()}>
-                    + Nouvelle tâche
-                </button>
+      <section>
+        <button type="button" onClick={() => dialogRef.current?.showModal()}>
+          + Nouvelle tâche
+        </button>
 
-                <CreateTaskModal dialogRef={dialogRef} />
-            </section>
+        <CreateTaskModal dialogRef={dialogRef} />
+      </section>
 
-            <section>
-                <h2>Mes tâches</h2>
+      <section>
+        <h2>Mes tâches</h2>
 
-                {error && <p role="alert">{error}</p>}
-                {isLoading ? <p>Chargement des tâches…</p> : <TaskList tasks={tasks} />}
-            </section>
-        </main>
-    );
+        {error && <p role="alert">{error}</p>}
+        {isLoading ? <p>Chargement des tâches…</p> : <TaskList tasks={tasks} />}
+      </section>
+    </main>
+  );
 }
