@@ -1,8 +1,8 @@
 import { TaskItem } from '../TaskItem/TaskItem';
 
-export function TaskList({ tasks }) {
+export function TaskList({ tasks, emptyMessage = 'Aucune tâche pour le moment.' }) {
   if (tasks.length === 0) {
-    return <p>Aucune tâche pour le moment.</p>;
+    return <p>{emptyMessage}</p>;
   }
 
   return (
