@@ -5,7 +5,9 @@ import { z } from 'zod';
 export const UserSchema = z
   .object(
     {
-      id: z.uuid({ error: "L'identifiant doit être un UUID valide" }),
+      _id: z
+        .string({ error: "L'identifiant doit être une chaîne de caractères" })
+        .regex(/^[\da-f]{24}$/i, 'Identifiant utilisateur invalide'),
       email: z.email({ error: "L'adresse e-mail est invalide" }),
       createdAt: z.coerce.date({ error: 'La date de création est invalide' }),
       updatedAt: z.coerce.date({ error: 'La date de modification est invalide' }),
@@ -20,7 +22,7 @@ export const UserSchema = z
 
 // Creation input - no id or timestamps
 export const CreateUserSchema = UserSchema.omit({
-  id: true,
+  _id: true,
   createdAt: true,
   updatedAt: true,
 });
