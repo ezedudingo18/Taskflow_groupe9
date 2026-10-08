@@ -18,7 +18,7 @@ export function register(credentials) {
 export async function login({ email, password }) {
   const user = await userService.getUserCredentialsByEmail(email);
 
-  if (user && (await bcrypt.compare(password, user.passwordHash))) {
+  if (user && bcrypt.compare(password, user.passwordHash)) {
     return {
       token: jwt.sign({ _id: user._id }, config.jwtSecret, { expiresIn: '7d' }),
     };

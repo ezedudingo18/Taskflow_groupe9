@@ -1,109 +1,104 @@
-# Starter Full Stack JS
+# TaskFlow
 
-Point de départ minimal pour les projets étudiants du module Full Stack JS.
+App de gestion de tâches, powered by:
+
+- React + Vite;
+- Express;
+- MongoDB;
 
 ## Prérequis
 
-- Node.js 24 ;
-- pnpm 10 ou plus récent.
+- Node.js 24 ou ultérieur;
+- pnpm 12 ou ultérieur;
+- Docker + Docker Compose.
 
 ## Installation
 
-Depuis ce dossier :
+Depuis la racine du projet :
 
 ```bash
 pnpm install
+cp apps/backend/.env.example apps/backend/.env
 ```
 
-## Démarrage
+Modifiez `apps/backend/.env` si nécessaire. Ne partagez jamais la valeur de
+`JWT_SECRET`.
 
-### Docker
+## Lancer le projet
 
-Pour démarrer MongoDB et sa webui mongo-express, placez-vous dans le répertoire du repo, et démarrez la stack à l'aide de :
+1. Démarrer MongoDB :
+
+   ```bash
+   docker compose up -d
+   ```
+
+2. Démarrer le frontend et le backend :
+
+   ```bash
+   pnpm run dev
+   ```
+
+   Le frontend est disponible sur <http://localhost:5173>.
+   L'API est disponible sur <http://localhost:3000>.
+
+Pour démarrer MongoDB et l'application en une seule commande :
 
 ```bash
-docker compose up
-
-
-# Ou avec l'option detach pour libérer le terminal
-docker compose up -d
+pnpm dev:full
 ```
 
-Puis pour l'arrêter :
+Pour arrêter les conteneurs :
 
 ```bash
 docker compose down
+```
 
-# Ou alors pour supprimer toutes les données de Mongo
+Pour supprimer aussi les données MongoDB :
+
+```bash
 docker compose down -v
 ```
 
-mongo-express est accessible à l'adresse [http://localhost:3000](http://localhost:3000)
+## Liens utiles
 
-### Applications
+- Application : <http://localhost:5173>
+- API : <http://localhost:3000>
+- Documentation Swagger : <http://localhost:3000/api/docs>
+- Spécification OpenAPI : <http://localhost:3000/api/openapi.json>
+- Mongo Express : <http://localhost:3001>
+
+## Tester l'API
+
+Dans Swagger :
+
+1. appelez `POST /api/auth/register` ou `POST /api/auth/login` ;
+2. copiez la valeur `token` de la réponse ;
+3. cliquez sur **Authorize** ;
+4. collez le jeton, sans écrire `Bearer` ;
+5. testez les routes `Tasks` ou `Users`.
+
+Les routes de tâches et `GET /api/users/me` nécessitent un jeton JWT.
+
+## Commandes
 
 ```bash
-pnpm dev
+pnpm dev       # frontend et backend en mode développement
+pnpm build     # construit le frontend
+pnpm start     # démarre uniquement le backend
+pnpm test      # lance les tests du backend
+pnpm check     # vérifie le code et le formatage
+pnpm check:fix # corrige le code et le formatage
 ```
-
-Cette commande démarre le frontend Vite et le backend Express simultanément.
-
-- Frontend : http://localhost:5173
-- API santé : http://localhost:3000/api/health
-- Documentation Swagger : http://localhost:3000/api/docs
-- Spécification OpenAPI : http://localhost:3000/api/openapi.json
-- API santé via le proxy Vite : http://localhost:5173/api/health
-
-Autres commandes :
-
-```bash
-pnpm build
-pnpm start
-pnpm test
-```
-
-`pnpm build` construit le frontend. `pnpm start` démarre uniquement le backend en mode production locale. `pnpm test` lance les tests backend.
-
-## Documentation de l'API
-
-La documentation interactive Swagger UI est disponible sur
-[http://localhost:3000/api/docs](http://localhost:3000/api/docs) lorsque le backend est démarré.
-La spécification OpenAPI JSON est exposée sur
-[http://localhost:3000/api/openapi.json](http://localhost:3000/api/openapi.json).
-
-Pour essayer les routes protégées dans Swagger UI :
-
-1. appeler `POST /api/auth/register` ou `POST /api/auth/login` ;
-2. copier la valeur `token` renvoyée par la connexion ;
-3. cliquer sur **Authorize** et saisir le jeton (sans ajouter manuellement `Bearer`) ;
-4. appeler les routes `Tasks` ou `Users`.
-
-Le jeton JWT est requis pour les routes de tâches et `GET /api/users/me`. Les données envoyées
-aux routes sont validées par les schémas partagés du dossier `schemas/`.
 
 ## Structure
 
 ```text
 apps/
-  frontend/   application React avec Vite
-  backend/    serveur Express
-    src/app.js  création de l'application et route health
-    src/server.js démarrage du serveur
+  frontend/  application React
+  backend/   serveur Express et API
+schemas/     schémas de validation partagés
+compose.yaml services MongoDB et Mongo Express
 ```
 
-## Proxy Vite
-
-En développement, une requête frontend vers `/api/...` est transmise automatiquement à Express sur `http://localhost:3000`. Les composants React peuvent donc appeler `/api/health` sans coder l'adresse du backend.
-
-## À développer pendant le cours
-
-Ce starter ne contient volontairement pas :
-
-- API métier et routes CRUD ;
-- MongoDB et modèles de données ;
-- authentification et autorisation ;
-- validation ;
-- tests de votre application métier ;
-- documentation de votre application.
-
-Vous concevrez ces éléments pour TaskFlow, HabitLab ou BudgetFlow.
+En développement, Vite redirige automatiquement les requêtes `/api/...` vers
+le backend sur `http://localhost:3000`.
