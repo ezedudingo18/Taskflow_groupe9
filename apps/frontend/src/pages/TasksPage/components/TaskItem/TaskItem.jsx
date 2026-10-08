@@ -6,7 +6,7 @@ export function TaskItem({ task }) {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description || '');
-  const [deadline, setDeadline] = useState(task.deadline || '');
+  const [deadline, setDeadline] = useState(task.deadline?.slice(0, 10) || '');
 
   const isDone = task.status === 'done';
 
@@ -49,7 +49,10 @@ export function TaskItem({ task }) {
 
         {task.deadline && (
           <p>
-            Échéance : <time dateTime={task.deadline}>{task.deadline}</time>
+            Échéance :{' '}
+            <time dateTime={task.deadline}>
+              {new Date(task.deadline).toLocaleDateString('fr-FR', { timeZone: 'UTC' })}
+            </time>
           </p>
         )}
 

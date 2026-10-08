@@ -14,14 +14,18 @@ export function Header() {
   return (
     <header>
       <h1>TaskFlow</h1>
-      <p>
-        Connecté en tant que : <strong>{user?.email}</strong>
-      </p>
-      <nav>
-        <button type="button" onClick={handleLogout}>
-          Se déconnecter
-        </button>
-      </nav>
+      {user && (
+        <>
+          <p>
+            Connecté en tant que : <strong>{user.email}</strong>
+          </p>
+          <nav>
+            <button type="button" onClick={handleLogout}>
+              Se déconnecter
+            </button>
+          </nav>
+        </>
+      )}
     </header>
   );
 }

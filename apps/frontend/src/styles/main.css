@@ -1,17 +1,37 @@
+/* ==========================================================================
+   Variables
+   ========================================================================== */
+
 :root {
   color-scheme: light;
+
+  --color-bg: #f6f7f9;
+  --color-surface: #ffffff;
+  --color-border: #e3e5e8;
+  --color-border-strong: #d0d4da;
+  --color-text: #1f2328;
+  --color-muted: #6b7280;
+
+  --color-accent: #c9512c;
+  --color-accent-hover: #ad4322;
+  --color-accent-soft: rgb(255 139 105 / 0.2);
+  --color-on-accent: #ffffff;
+
+  --color-danger: #c92a2a;
+  --color-danger-bg: #fff5f5;
+
+  --radius: 8px;
+  --radius-lg: 12px;
 }
 
-html,
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
 body {
-  transition: all 125ms ease;
-  overflow-wrap: break-word;
-  text-rendering: optimizeLegibility;
-  font-family: "Plus Jakarta Sans", sans-serif;
-
   min-height: 100dvh;
-  display: grid;
-
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--color-bg);
   background-image:
     radial-gradient(
       74% 60% at 46% 54%,
@@ -24,114 +44,414 @@ body {
       rgba(0, 0, 0, 0) 68%
     ),
     linear-gradient(212deg, color(srgb 1 0.705882 0.615686 / 0.85) 0%, rgba(0, 0, 0, 0) 68%);
+  background-attachment: fixed;
+  color: var(--color-text);
+  overflow-wrap: break-word;
+  text-rendering: optimizeLegibility;
 }
 
 main {
   display: grid;
-  position: relative;
-}
-
-form,
-form-group {
-  display: grid;
-}
-
-form-group {
-  &:has(input[type="radio"]) {
-    display: flex;
-    gap: 0.4rem;
-  }
-}
-
-dialog {
-  border: none;
-  background-color: var(--color-surface-1);
-  padding: 1rem;
-  display: grid;
-  justify-items: start;
-  border-radius: var(--radius-3);
-
-  &::backdrop {
-    background-color: var(--color-backdrop);
-    backdrop-filter: blur(4px);
-  }
-}
-
-[popover] {
-  border: none;
-  background-color: var(--color-surface-1);
-  padding: 1rem;
-  display: grid;
-  justify-items: start;
-  border-radius: var(--radius-3);
-}
-
-.button {
-  border: 0;
-  padding-block: 0.5rem;
-  padding-inline: 0.75rem;
-  background-color: var(--color-surface-2);
-  color: var(--color-on-surface-1);
-  border-radius: var(--radius-2);
-  display: inline-flex;
-  gap: 0.5rem;
-  font-weight: 600;
-
-  &:hover {
-    background-color: var(--color-surface-3);
-  }
-}
-
-.button.brand {
-  background-color: var(--color-brand);
-  color: var(--color-on-brand);
-}
-
-.button.skeuomorphic {
-  --depth: 0.25rem;
-  --bg-override: var(--color-surface-2);
-  --shadow-col: color-mix(in srgb, var(--bg-override), black 20%);
-
-  position: relative;
-  background-color: var(--bg-override);
-  box-shadow: 0 var(--depth) 0 var(--shadow-col);
-  margin-block-end: var(--depth);
-
-  transition:
-    transform 100ms,
-    box-shadow 100ms;
-  transition-timing-function: ease;
-
-  &:hover {
-    transform: translateY(-0.125rem);
-    box-shadow: 0 calc(var(--depth) + 0.125rem) 0 var(--shadow-col);
-    background-color: var(--bg-override);
-  }
-
-  &:active {
-    transform: translateY(var(--depth));
-    box-shadow: 0 0 0 var(--shadow-col);
-  }
-}
-
-.button.skeuomorphic.brand {
-  --bg-override: var(--color-brand);
-  color: var(--color-on-brand);
-}
-
-.select {
-  border-radius: var(--radius-2);
-  border: 0;
-  padding-block: 0.5rem;
-  padding-inline: 0.75rem;
-  background-color: var(--color-surface-2);
-  color: var(--color-on-surface-1);
-  border-block-end: 0.125rem solid var(--color-brand);
+  align-content: start;
+  gap: 1.5rem;
+  max-width: 40rem;
+  margin-inline: auto;
+  padding: 2rem 1rem;
 }
 
 p {
   max-width: 75ch;
 }
+
+h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-block-end: 0.75rem;
+}
+
+/* ==========================================================================
+   En-tête de page
+   ========================================================================== */
+
+main > header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding-block-end: 1rem;
+  border-block-end: 1px solid var(--color-border);
+
+  h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-inline-end: auto;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+
+  strong {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  /* Bouton Se déconnecter */
+  nav button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    border-color: transparent;
+    border-radius: 999px;
+    background-color: rgb(255 255 255 / 0.6);
+    color: var(--color-muted);
+    font-size: 0.85rem;
+    backdrop-filter: blur(4px);
+
+    &::after {
+      content: "→";
+      transition: transform 120ms ease;
+    }
+
+    &:hover {
+      border-color: var(--color-accent);
+      background-color: var(--color-surface);
+      color: var(--color-accent);
+    }
+
+    &:hover::after {
+      transform: translateX(2px);
+    }
+  }
+}
+
+/* ==========================================================================
+   Boutons
+   ========================================================================== */
+
+button {
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease;
+
+  &:hover {
+    background-color: var(--color-bg);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* Bouton principal : envoi de formulaire et « Nouvelle tâche » */
+button[type="submit"],
+main > section > button {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-on-accent);
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
+}
+
+/* ==========================================================================
+   Onglets Connexion / Inscription
+   ========================================================================== */
+
+main > nav {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+
+  button {
+    flex: 1;
+    border-color: transparent;
+    background-color: transparent;
+    color: var(--color-muted);
+
+    &:hover {
+      color: var(--color-text);
+    }
+
+    &[aria-pressed="true"] {
+      background-color: var(--color-accent-soft);
+      color: var(--color-accent);
+    }
+  }
+}
+
+/* ==========================================================================
+   Formulaires
+   ========================================================================== */
+
+form {
+  display: grid;
+}
+
+/* Carte autour des formulaires de connexion / inscription */
+main > section > form {
+  padding: 1.5rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+fieldset {
+  display: grid;
+  gap: 1rem;
+  min-inline-size: 0;
+  padding: 0;
+  border: 0;
+
+  > button {
+    justify-self: start;
+  }
+}
+
+legend {
+  padding: 0;
+  margin-block-end: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+label {
+  display: block;
+  margin-block-end: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+input:not([type="checkbox"]),
+textarea {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-soft);
+  }
+}
+
+textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Messages
+   ========================================================================== */
+
+[role="alert"] {
+  max-width: none;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--color-danger), transparent 70%);
+  border-radius: var(--radius);
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger);
+  font-size: 0.9rem;
+}
+
+/* Liste vide / chargement */
+main > section > p:not([role="alert"]) {
+  max-width: none;
+  padding: 2rem 1rem;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  color: var(--color-muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   Page des tâches
+   ========================================================================== */
+
+/* Bouton « Nouvelle tâche » aligné à droite */
+main > section:has(> dialog) {
+  display: flex;
+  justify-content: flex-end;
+}
+
+ul {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+li > article {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+
+  > header p {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  > header label {
+    margin: 0;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  > header strong {
+    font-weight: 600;
+  }
+
+  /* Échéance et description alignées sous le titre */
+  > p,
+  > details {
+    padding-inline-start: 1.7rem;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+
+  summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+    list-style: none;
+    transition: color 120ms ease;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::before {
+      content: "›";
+      font-size: 1.1em;
+      line-height: 1;
+      transition: transform 150ms ease;
+    }
+
+    &:hover {
+      color: var(--color-accent);
+    }
+  }
+
+  details[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  details p {
+    margin-block-start: 0.5rem;
+    padding: 0.6rem 0.8rem;
+    border-inline-start: 3px solid var(--color-accent-soft);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+
+  > footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+
+    button {
+      padding: 0.35rem 0.7rem;
+      font-size: 0.85rem;
+    }
+
+    /* Supprimer */
+    button:last-child {
+      color: var(--color-danger);
+
+      &:hover {
+        background-color: var(--color-danger-bg);
+        border-color: var(--color-danger);
+      }
+    }
+  }
+
+  /* Formulaire d'édition */
+  > form {
+    margin-block-start: 0.25rem;
+    padding-block-start: 1rem;
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  > form legend {
+    font-size: 1rem;
+  }
+}
+
+/* Tâche terminée */
+li > article:has(> header input:checked) > header strong {
+  color: var(--color-muted);
+  font-weight: 500;
+  text-decoration: line-through;
+}
+
+/* ==========================================================================
+   Modale
+   ========================================================================== */
+
+dialog {
+  width: min(32rem, calc(100% - 2rem));
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 20px 40px rgb(0 0 0 / 0.15);
+
+  &::backdrop {
+    background-color: rgb(0 0 0 / 0.4);
+    backdrop-filter: blur(2px);
+  }
+
+  /* Bouton principal à droite, Annuler à sa gauche */
+  footer {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+    margin-block-start: 0.5rem;
+  }
+}
+
+/* ==========================================================================
+   Transitions de vue
+   ========================================================================== */
 
 ::view-transition-group(*) {
   animation-duration: 500ms;
