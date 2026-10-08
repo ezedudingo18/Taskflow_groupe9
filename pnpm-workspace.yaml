@@ -1,6 +1,6 @@
 packages:
   - apps/*
-  - schemas
+  - packages/*
 
 allowBuilds:
   esbuild: true

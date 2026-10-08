@@ -96,7 +96,8 @@ pnpm run check:fix # corrige le code et le formatage
 apps/
   frontend/  application React
   backend/   serveur Express et API
-schemas/     schémas de validation partagés
+packages/
+  schemas/   schémas de validation partagés
 compose.yaml services MongoDB et Mongo Express
 ```
 
