@@ -88,6 +88,7 @@ test('Les schémas de tâches rejettent les payloads invalides', () => {
     false,
   );
   assert.equal(UpdateTaskSchema.safeParse({}).success, false);
+  assert.equal(UpdateTaskSchema.safeParse({ description: '' }).success, true);
   assert.equal(UpdateTaskSchema.safeParse({ unknown: true }).success, false);
   assert.equal(TaskParamsSchema.safeParse({ _id: 'not-an-object-id' }).success, false);
   assert.equal(AuthTokenPayloadSchema.safeParse({}).success, false);

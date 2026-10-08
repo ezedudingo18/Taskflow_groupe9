@@ -20,7 +20,7 @@ export function TaskItem({ task }) {
     e.preventDefault();
     await updateTask(task._id, {
       title: title.trim(),
-      description: description.trim() || undefined,
+      description: description.trim(),
       deadline: deadline || null,
     });
     setIsEditing(false);
