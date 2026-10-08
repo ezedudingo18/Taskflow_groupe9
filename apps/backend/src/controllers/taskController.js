@@ -1,9 +1,8 @@
 import * as taskService from '../services/taskService.js';
+import { AppError } from '../errors/AppError.js';
 
 function throwNotFound() {
-  const error = new Error('Tâche introuvable');
-  error.statusCode = 404;
-  throw error;
+  throw new AppError('Tâche introuvable', 404);
 }
 
 export async function getTasks(request, response) {

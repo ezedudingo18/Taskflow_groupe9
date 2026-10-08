@@ -1,11 +1,10 @@
 import * as userService from '../services/userService.js';
+import { AppError } from '../errors/AppError.js';
 
 export async function getMe(request, response) {
   const user = await userService.getUser(request.user._id);
   if (!user) {
-    const error = new Error('Utilisateur introuvable');
-    error.statusCode = 404;
-    throw error;
+    throw new AppError('Utilisateur introuvable', 404);
   }
   return response.status(200).json({ user });
 }
