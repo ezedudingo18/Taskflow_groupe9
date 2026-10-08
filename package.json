@@ -9,12 +9,14 @@
     "start": "pnpm --filter backend start",
     "test": "pnpm --filter backend test",
     "check": "oxlint . && oxfmt --check .",
-    "check:fix": "oxlint --fix . && oxfmt --write ."
+    "check:fix": "oxlint --fix . && oxfmt --write .",
+    "prepare": "husky"
   },
   "dependencies": {
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
     "oxfmt": "^0.72.0",
     "oxlint": "^1.87.0"
   },

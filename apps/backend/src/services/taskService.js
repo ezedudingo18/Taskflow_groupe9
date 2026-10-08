@@ -19,7 +19,7 @@ export function updateTask({ _id, owner, ...changes }) {
   return Task.findOneAndUpdate(
     { _id, owner },
     { $set: changes },
-    { new: true, runValidators: true },
+    { returnDocument: 'after', runValidators: true },
   );
 }
 

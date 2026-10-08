@@ -1,6 +1,7 @@
 packages:
   - apps/*
-  - schemas
+  - packages/*
 
 allowBuilds:
   esbuild: true
+  '@scarf/scarf': false
