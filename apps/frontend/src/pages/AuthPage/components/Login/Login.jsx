@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { authApi } from '../../../../api/auth';
-import { usersApi } from '../../../../api/users';
+import * as authService from '../../../../api/services/authService.js';
+import * as userService from '../../../../api/services/userService.js';
 import { useAuthStore } from '../../../../stores/auth.store';
 
 export function Login() {
@@ -15,8 +15,8 @@ export function Login() {
     setError(null);
     setLoading(true);
     try {
-      const { token } = await authApi.login(email, password);
-      const { user } = await usersApi.me(token);
+      const { token } = await authService.login(email, password);
+      const { user } = await userService.getCurrentUser(token);
       setAuth(user, token);
     } catch (error) {
       setError(error.message);

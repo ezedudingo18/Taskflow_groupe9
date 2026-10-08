@@ -5,11 +5,13 @@ function throwNotFound() {
   throw new AppError('Tâche introuvable', 404);
 }
 
+// Return the authenticated user's tasks.
 export async function getTasks(request, response) {
   const tasks = await taskService.listTasks({ owner: request.user._id });
   return response.status(200).json({ tasks });
 }
 
+// Create a task for the authenticated user.
 export async function createTask(request, response) {
   const { title, description, status, deadline } = request.body;
   const task = await taskService.createTask({
@@ -22,6 +24,7 @@ export async function createTask(request, response) {
   return response.status(201).json({ task });
 }
 
+// Update a task belonging to the authenticated user.
 export async function updateTask(request, response) {
   const { title, description, status, deadline } = request.body;
   const task = await taskService.updateTask({
@@ -38,6 +41,7 @@ export async function updateTask(request, response) {
   return response.status(200).json({ task });
 }
 
+// Delete a task belonging to the authenticated user.
 export async function deleteTask(request, response) {
   const task = await taskService.deleteTask({
     _id: request.params._id,

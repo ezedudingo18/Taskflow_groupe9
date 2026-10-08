@@ -15,6 +15,7 @@ export function register(credentials) {
   return userService.createUser(result.data);
 }
 
+// Authenticate a user and issue a signed token.
 export async function login({ email, password }) {
   const user = await userService.getUserCredentialsByEmail(email);
 

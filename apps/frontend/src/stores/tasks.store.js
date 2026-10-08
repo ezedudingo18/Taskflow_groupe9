@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { tasksApi } from '../api/tasks';
+import * as taskService from '../api/services/taskService.js';
 
 export const useTasksStore = create((set) => ({
   tasks: [],
@@ -11,7 +11,7 @@ export const useTasksStore = create((set) => ({
   fetchTasks: async (signal) => {
     set({ isLoading: true, error: null });
     try {
-      const tasks = await tasksApi.getAll(signal);
+      const tasks = await taskService.listTasks(signal);
       set({ tasks, isLoading: false });
     } catch (error) {
       if (error.name === 'AbortError') return;
@@ -22,7 +22,7 @@ export const useTasksStore = create((set) => ({
   addTask: async (task) => {
     set({ error: null });
     try {
-      const createdTask = await tasksApi.create(task);
+      const createdTask = await taskService.createTask(task);
       set((state) => ({ tasks: [createdTask, ...state.tasks] }));
     } catch (error) {
       set({ error: error.message });
@@ -33,7 +33,7 @@ export const useTasksStore = create((set) => ({
   updateTask: async (_id, changes) => {
     set({ error: null });
     try {
-      const updatedTask = await tasksApi.update(_id, changes);
+      const updatedTask = await taskService.updateTask(_id, changes);
       set((state) => ({
         tasks: state.tasks.map((task) => (task._id === _id ? updatedTask : task)),
       }));
@@ -46,7 +46,7 @@ export const useTasksStore = create((set) => ({
   deleteTask: async (_id) => {
     set({ error: null });
     try {
-      await tasksApi.delete(_id);
+      await taskService.deleteTask(_id);
       set((state) => ({
         tasks: state.tasks.filter((task) => task._id !== _id),
       }));
