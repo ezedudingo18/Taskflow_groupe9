@@ -31,6 +31,8 @@ export const AuthTokenPayloadSchema = z
       _id: z
         .string({ error: "L'identifiant utilisateur est obligatoire" })
         .regex(/^[\da-f]{24}$/i, 'Identifiant utilisateur invalide'),
+      iat: z.number().optional(),
+      exp: z.number().optional(),
     },
     {
       error: (issue) => (issue.code === 'unrecognized_keys' ? 'Champs non autorisés' : undefined),

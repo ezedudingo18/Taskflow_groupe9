@@ -3,17 +3,13 @@ import jwt from 'jsonwebtoken';
 import { RegisterUserSchema } from 'schemas/auth';
 import { config } from '../config/env.js';
 import * as userService from './userService.js';
+import { AppError } from '../errors/AppError.js';
+import { ValidationError } from '../errors/ValidationError.js';
 
 export function register(credentials) {
   const result = RegisterUserSchema.safeParse(credentials);
   if (!result.success) {
-    const error = new Error('Données invalides');
-    error.statusCode = 400;
-    error.details = result.error.issues.map((issue) => ({
-      field: issue.path.join('.'),
-      message: issue.message,
-    }));
-    throw error;
+    throw new ValidationError('Données invalides', result.error.issues);
   }
 
   return userService.createUser(result.data);
@@ -28,7 +24,5 @@ export async function login({ email, password }) {
     };
   }
 
-  const error = new Error('Identifiants invalides');
-  error.statusCode = 401;
-  throw error;
+  throw new AppError('Identifiants invalides', 401);
 }

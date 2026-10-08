@@ -91,4 +91,12 @@ test('Les schémas de tâches rejettent les payloads invalides', () => {
   assert.equal(UpdateTaskSchema.safeParse({ unknown: true }).success, false);
   assert.equal(TaskParamsSchema.safeParse({ _id: 'not-an-object-id' }).success, false);
   assert.equal(AuthTokenPayloadSchema.safeParse({}).success, false);
+  assert.equal(
+    AuthTokenPayloadSchema.safeParse({
+      _id: '507f1f77bcf86cd799439011',
+      iat: 1791402529,
+      exp: 1792007329,
+    }).success,
+    true,
+  );
 });
