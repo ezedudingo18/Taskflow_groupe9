@@ -103,3 +103,41 @@ compose.yaml services MongoDB et Mongo Express
 
 En développement, Vite redirige automatiquement les requêtes `/api/...` vers
 le backend sur `http://localhost:3000`.
+
+## Déploiement avec Docker
+
+La configuration de production utilise deux images locales : le frontend est
+servi par Caddy et transmet `/api` au backend, tandis que le backend utilise
+le service MongoDB interne au réseau Compose.
+
+Depuis la racine du projet, construisez d'abord les images :
+
+```bash
+docker build -f apps/frontend/Containerfile -t taskflow-frontend:local .
+docker build -f apps/backend/Containerfile -t taskflow-backend:local .
+```
+
+Définissez ensuite un secret JWT puis démarrez les services :
+
+```bash
+export JWT_SECRET="$(openssl rand -base64 32)"
+docker compose -f compose.production.yaml up -d
+```
+
+L'application est alors disponible sur <http://localhost:3000>. L'API n'est
+pas exposée directement : Caddy transmet les requêtes `/api` au backend sur le
+réseau Docker interne. MongoDB conserve ses données dans le volume
+`mongo-production`.
+
+Pour suivre les logs ou arrêter le déploiement :
+
+```bash
+docker compose -f compose.production.yaml logs -f
+docker compose -f compose.production.yaml down
+```
+
+Pour supprimer également les données MongoDB :
+
+```bash
+docker compose -f compose.production.yaml down -v
+```
