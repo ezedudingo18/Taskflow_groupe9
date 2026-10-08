@@ -2,6 +2,7 @@ import { useAuthStore } from '../stores/auth.store';
 
 const BASE_URL = '/api';
 
+// Send authenticated requests and normalize API errors.
 export async function apiClient(endpoint, options = {}) {
   const token = useAuthStore.getState().token;
   const headers = {
@@ -19,6 +20,7 @@ export async function apiClient(endpoint, options = {}) {
   });
 
   if (response.status === 401) {
+    // Clear the local session when the token is rejected.
     useAuthStore.getState().logout();
     throw new Error('Session expirée ou non autorisée');
   }
