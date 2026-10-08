@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "main": "./index.js",
+  "main": "./src/index.js",
   "exports": {
-    ".": "./index.js",
-    "./auth": "./auth.js",
-    "./params": "./params.js",
-    "./user": "./user.js",
-    "./task": "./task.js"
+    ".": "./src/index.js",
+    "./auth": "./src/auth.js",
+    "./params": "./src/params.js",
+    "./user": "./src/user.js",
+    "./task": "./src/task.js"
   },
   "dependencies": {
     "zod": "^4.6.5"
