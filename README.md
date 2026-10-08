@@ -44,7 +44,7 @@ Modifiez `apps/backend/.env` si nécessaire. Ne partagez jamais la valeur de
 Pour démarrer MongoDB et l'application en une seule commande :
 
 ```bash
-pnpm dev:full
+pnpm run dev:full
 ```
 
 Pour arrêter les conteneurs :
@@ -82,12 +82,12 @@ Les routes de tâches et `GET /api/users/me` nécessitent un jeton JWT.
 ## Commandes
 
 ```bash
-pnpm dev       # frontend et backend en mode développement
-pnpm build     # construit le frontend
-pnpm start     # démarre uniquement le backend
-pnpm test      # lance les tests du backend
-pnpm check     # vérifie le code et le formatage
-pnpm check:fix # corrige le code et le formatage
+pnpm run dev       # frontend et backend en mode développement
+pnpm run build     # construit le frontend
+pnpm run start     # démarre uniquement le backend
+pnpm run test      # lance les tests du backend
+pnpm run check     # vérifie le code et le formatage
+pnpm run check:fix # corrige le code et le formatage
 ```
 
 ## Structure
